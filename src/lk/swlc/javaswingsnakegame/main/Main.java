@@ -15,6 +15,7 @@ import static lk.swlc.javaswingsnakegame.model.BoardSettingsOptions.*;
 public class Main {
 
     public static void main(String[] args) {
+
         new SnakeGameUI(new BoardSettingsOptions(DOT_SIZE,
                 DOTS_NUMBER_PER_DIMENSION,
                 SNAKE_DOT_IMAGE_LOCATION,
