@@ -8,14 +8,15 @@ package lk.swlc.javaswingsnakegame.model;
 
 public final class BoardSettingsOptions {
 
-    // region статика
+    // normal board dot size and dimension of dot numbers
     public static final int DOT_SIZE = 16;
     public static final int DOTS_NUMBER_PER_DIMENSION = 40;
 
+    //image location/path
     public static final String APPLE_IMAGE_LOCATION = "images.png";
     public static final String SNAKE_DOT_IMAGE_LOCATION = "snakeicon.png";
-    // endregion
 
+    // variable declaration for board
     private final int dotSize;
     private final int windowSizePerDimension;
     private final int allDotsNumber;
@@ -23,11 +24,12 @@ public final class BoardSettingsOptions {
     private final String snakeDotImageLocation;
     private final String appleImageLocation;
 
+    //constructor
     public BoardSettingsOptions(
-            final int dotSize,
-            final int dotNumberPerDimension,
-            final String snakeDotImageLocation,
-            final String appleImageLocation) {
+            int dotSize,
+            int dotNumberPerDimension,
+            String snakeDotImageLocation,
+            String appleImageLocation) {
 
         this.dotSize = dotSize;
 
