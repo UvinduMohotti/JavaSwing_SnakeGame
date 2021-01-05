@@ -14,15 +14,17 @@ import java.awt.*;
 
 public class SnakeGameUI extends JFrame {
 
-    public SnakeGameUI(final BoardSettingsOptions settings) {
+    //    Open Game
+    public SnakeGameUI(final BoardSettingsOptions boardSettingsOptions) {
         super("~~~ Snake-Game ~~~");
 
-        getContentPane().add(new BoardPanel(settings));
+        getContentPane().add(new BoardPanel(boardSettingsOptions));
         pack();
 
         setWindow();
     }
 
+    //    Open Windows Settings
     private void setWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -30,6 +32,7 @@ public class SnakeGameUI extends JFrame {
         setVisible(true);
     }
 
+    //    Manage Windows Center on Screen
     private void setLocationInCenter() {
         setLocationRelativeTo(null);
 

@@ -31,18 +31,19 @@ public class BoardPanel extends JPanel implements ActionListener {
     private boolean isPlaying;
     private Timer timer;
 
-    public BoardPanel(final BoardSettingsOptions settings) {
-        dotSize = settings.getDotSize();
-        dogObjectModel = new DogObjectModel(new ImageIcon(settings.getAppleImageLocation()).getImage());
+    //Constructor
+    public BoardPanel(final BoardSettingsOptions boardSettingsOptions) {
+        dotSize = boardSettingsOptions.getDotSize();
+        dogObjectModel = new DogObjectModel(new ImageIcon(boardSettingsOptions.getAppleImageLocation()).getImage());
         random = new Random();
-        snake = new Snake(new ImageIcon(settings.getSnakeDotImageLocation()).getImage(),
-                dotSize, settings.getAllDotsNumber(), getWidth() / 2);
+        snake = new Snake(new ImageIcon(boardSettingsOptions.getSnakeDotImageLocation()).getImage(),
+                dotSize, boardSettingsOptions.getAllDotsNumber(), getWidth() / 2);
         isPlaying = true;
         timer = new Timer(100, this);
 
         addKeyListener(new FieldKeyListener());
 
-        setSize(new Dimension(settings.getWindowSizePerDimension(), settings.getWindowSizePerDimension()));
+        setSize(new Dimension(boardSettingsOptions.getWindowSizePerDimension(), boardSettingsOptions.getWindowSizePerDimension()));
         setPreferredSize(getSize());
         setBackground(Color.WHITE);
         setFocusable(true);
@@ -51,6 +52,7 @@ public class BoardPanel extends JPanel implements ActionListener {
         startGame();
     }
 
+    //    Make to Play Game
     private void startGame() {
         isPlaying = true;
         timer.start();
@@ -61,10 +63,11 @@ public class BoardPanel extends JPanel implements ActionListener {
                 snake.getMaxDotsNumber(),
                 getWidth() / 2);
 
-        randomAppleCoords();
+        randomDOGCoords();
     }
 
-    private void randomAppleCoords() {
+    //    Random put the Dog Image in Board
+    private void randomDOGCoords() {
         dogObjectModel.setX(random.nextInt(getWidth() / dotSize) * dotSize);
         dogObjectModel.setY(random.nextInt(getHeight() / dotSize) * dotSize);
     }
@@ -76,7 +79,7 @@ public class BoardPanel extends JPanel implements ActionListener {
 
             if (isAppleCollision()) {
                 snake.incSize();
-                randomAppleCoords();
+                randomDOGCoords();
             }
 
             snake.move();
@@ -140,16 +143,19 @@ public class BoardPanel extends JPanel implements ActionListener {
         }
     }
 
+    //    Display Images
     private void drawApple(Graphics gr) {
         gr.drawImage(dogObjectModel.getImage(), dogObjectModel.getX(), dogObjectModel.getY(), this);
     }
 
+    //    END Game Display
     private void drawGameOver(Graphics gr) {
         gr.setColor(Color.black);
         gr.drawString("End Game ! Press Enter Play again !", getWidth() / 3, getHeight() / 2);
 
     }
 
+    //    Event Handle Using key up,down,left,right
     private class FieldKeyListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent ev) {
