@@ -8,6 +8,11 @@ package lk.swlc.javaswingsnakegame.model;
 
 import java.awt.*;
 
+/*
+ *Snake Function and Data gathering from encapsulation Class
+ *
+ * */
+
 public class Snake {
 
     private final Image snakeDotImage;
@@ -34,7 +39,7 @@ public class Snake {
         directions = Directions.RIGHT;
     }
 
-    private void initCoords( int startX) {
+    private void initCoords(int startX) {
         for (int dotIndex = 0; dotIndex < getSize(); dotIndex++) {
             xs[dotIndex] = startX - dotIndex * dotSize;
             ys[dotIndex] = startX;
@@ -69,11 +74,13 @@ public class Snake {
         ys[index] = value;
     }
 
+    //Move Snake
     public void move() {
         moveTail();
         moveHead();
     }
 
+    //Move Snake Tail
     private void moveTail() {
         for (int i = getSize(); i > 0; i--) {
             setX(i, getX(i - 1));
@@ -81,6 +88,7 @@ public class Snake {
         }
     }
 
+    //Move Snake Head
     private void moveHead() {
         if (isMovingLeft()) {
             xs[0] -= dotSize;
@@ -97,18 +105,22 @@ public class Snake {
         directions = direction;
     }
 
+    //get Direction To LEFT
     public boolean isMovingLeft() {
         return directions == Directions.LEFT;
     }
 
+    //get Direction To UP
     public boolean isMovingUp() {
         return directions == Directions.UP;
     }
 
+    //get Direction To RIGHT
     public boolean isMovingRight() {
         return directions == Directions.RIGHT;
     }
 
+    //get Direction To DOWN
     public boolean isMovingDown() {
         return directions == Directions.DOWN;
     }

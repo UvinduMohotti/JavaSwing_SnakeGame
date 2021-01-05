@@ -16,6 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Call Main Method And Open JFrame With Snake Game
         new SnakeGameUI(new BoardSettingsOptions(DOT_SIZE,
                 DOTS_NUMBER_PER_DIMENSION,
                 SNAKE_DOT_IMAGE_LOCATION,
