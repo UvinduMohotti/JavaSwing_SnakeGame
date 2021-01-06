@@ -31,9 +31,13 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     private boolean isPlaying;
     private Timer timer;
-    private int  applecount=0;
+    private int applecount = 0;
 
-    //Constructor
+    /**
+     * Constructor
+     *
+     * @param boardSettingsOptions
+     */
     public BoardPanel(final BoardSettingsOptions boardSettingsOptions) {
         dotSize = boardSettingsOptions.getDotSize();
         dogObjectModel = new DogObjectModel(new ImageIcon(boardSettingsOptions.getAppleImageLocation()).getImage());
@@ -54,7 +58,10 @@ public class BoardPanel extends JPanel implements ActionListener {
         startGame();
     }
 
-    //    Make to Play Game
+    /**
+     * Make to Play Game
+     */
+
     private void startGame() {
         isPlaying = true;
         timer.start();
@@ -150,22 +157,22 @@ public class BoardPanel extends JPanel implements ActionListener {
     private void drawApple(Graphics gr) {
         gr.drawImage(dogObjectModel.getImage(), dogObjectModel.getX(), dogObjectModel.getY(), this);
         gr.setColor(Color.red);
-        gr.setFont( new Font("Ink Free",Font.BOLD, 40));
+        gr.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics1 = getFontMetrics(gr.getFont());
-        gr.drawString("Score: "+applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: "+applecount))/2, gr.getFont().getSize());
+        gr.drawString("Score: " + applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + applecount)) / 2, gr.getFont().getSize());
     }
 
     //    END Game Display
     private void drawGameOver(Graphics gr) {
         gr.setColor(Color.BLACK);
-        gr.setFont( new Font("Ink Free",Font.BOLD, 18));
+        gr.setFont(new Font("Ink Free", Font.BOLD, 18));
         gr.drawString("PLease Try Again! Press Enter Try Again", WIDTH / 2, getHeight() / 2);
 
         gr.setColor(Color.red);
-        gr.setFont( new Font("Ink Free",Font.BOLD, 40));
+        gr.setFont(new Font("Ink Free", Font.BOLD, 40));
         FontMetrics metrics1 = getFontMetrics(gr.getFont());
-        gr.drawString("Score: "+applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: "+applecount))/2, gr.getFont().getSize());
-        applecount=0;
+        gr.drawString("Score: " + applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + applecount)) / 2, gr.getFont().getSize());
+        applecount = 0;
 
     }
 
