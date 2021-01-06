@@ -9,10 +9,10 @@ package lk.swlc.javaswingsnakegame.model;
 import java.awt.*;
 import java.io.Serializable;
 
-/*
+/**
  * DOG Object encapsulation Class
  * getter/setter/tostring
- * */
+ */
 
 public final class DogObjectModel implements Serializable {
     private Image image;
