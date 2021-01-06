@@ -22,7 +22,8 @@ import java.util.Random;
 public class BoardPanel extends JPanel implements ActionListener {
 
     private final int dotSize;
-
+    static final int SCREEN_WIDTH = 600;
+    static final int WIDTH = 300;
     private final DogObjectModel dogObjectModel;
     private final Random random;
 
@@ -30,6 +31,7 @@ public class BoardPanel extends JPanel implements ActionListener {
 
     private boolean isPlaying;
     private Timer timer;
+    private int  applecount=0;
 
     //Constructor
     public BoardPanel(final BoardSettingsOptions boardSettingsOptions) {
@@ -79,6 +81,7 @@ public class BoardPanel extends JPanel implements ActionListener {
 
             if (isAppleCollision()) {
                 snake.incSize();
+                applecount++;
                 randomDOGCoords();
             }
 
@@ -146,12 +149,23 @@ public class BoardPanel extends JPanel implements ActionListener {
     //    Display Images
     private void drawApple(Graphics gr) {
         gr.drawImage(dogObjectModel.getImage(), dogObjectModel.getX(), dogObjectModel.getY(), this);
+        gr.setColor(Color.red);
+        gr.setFont( new Font("Ink Free",Font.BOLD, 40));
+        FontMetrics metrics1 = getFontMetrics(gr.getFont());
+        gr.drawString("Score: "+applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: "+applecount))/2, gr.getFont().getSize());
     }
 
     //    END Game Display
     private void drawGameOver(Graphics gr) {
-        gr.setColor(Color.black);
-        gr.drawString("End Game ! Press Enter Play again !", getWidth() / 3, getHeight() / 2);
+        gr.setColor(Color.BLACK);
+        gr.setFont( new Font("Ink Free",Font.BOLD, 18));
+        gr.drawString("PLease Try Again! Press Enter Try Again", WIDTH / 2, getHeight() / 2);
+
+        gr.setColor(Color.red);
+        gr.setFont( new Font("Ink Free",Font.BOLD, 40));
+        FontMetrics metrics1 = getFontMetrics(gr.getFont());
+        gr.drawString("Score: "+applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: "+applecount))/2, gr.getFont().getSize());
+        applecount=0;
 
     }
 
