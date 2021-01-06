@@ -8,10 +8,9 @@ package lk.swlc.javaswingsnakegame.model;
 
 import java.awt.*;
 
-/*
- *Snake Function and Data gathering from encapsulation Class
- *
- * */
+/**
+ * Snake Function and Data gathering from encapsulation Class
+ */
 
 public class Snake {
 
