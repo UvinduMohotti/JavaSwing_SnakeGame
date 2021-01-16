@@ -6,6 +6,7 @@
 
 package lk.swlc.javaswingsnakegame.panel;
 
+
 import lk.swlc.javaswingsnakegame.model.BoardSettingsOptions;
 import lk.swlc.javaswingsnakegame.model.Directions;
 import lk.swlc.javaswingsnakegame.model.DogObjectModel;
@@ -19,8 +20,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-public class BoardPanel extends JPanel implements ActionListener {
+public class BoardPanel extends JPanel implements ActionListener,Runnable {
 
+    private Thread thread;
     private final int dotSize;
     static final int SCREEN_WIDTH = 600;
     static final int WIDTH = 300;
@@ -49,6 +51,7 @@ public class BoardPanel extends JPanel implements ActionListener {
 
         addKeyListener(new FieldKeyListener());
 
+
         setSize(new Dimension(boardSettingsOptions.getWindowSizePerDimension(), boardSettingsOptions.getWindowSizePerDimension()));
         setPreferredSize(getSize());
         setBackground(Color.WHITE);
@@ -56,6 +59,15 @@ public class BoardPanel extends JPanel implements ActionListener {
         setVisible(true);
 
         startGame();
+    }
+
+    public void start() {
+        try {
+            thread = new Thread(this);
+            thread.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -71,8 +83,8 @@ public class BoardPanel extends JPanel implements ActionListener {
                 dotSize,
                 snake.getMaxDotsNumber(),
                 getWidth() / 2);
+        start();
 
-        randomDOGCoords();
     }
 
     //    Random put the Dog Image in Board
@@ -87,9 +99,10 @@ public class BoardPanel extends JPanel implements ActionListener {
                 && !isBadCollision()) {
 
             if (isAppleCollision()) {
+                thread.stop();
                 snake.incSize();
                 applecount++;
-                randomDOGCoords();
+                start();
             }
 
             snake.move();
@@ -173,7 +186,20 @@ public class BoardPanel extends JPanel implements ActionListener {
         FontMetrics metrics1 = getFontMetrics(gr.getFont());
         gr.drawString("Score: " + applecount, (SCREEN_WIDTH - metrics1.stringWidth("Score: " + applecount)) / 2, gr.getFont().getSize());
         applecount = 0;
+        thread.stop();
 
+    }
+
+    @Override
+    public void run() {
+        try {
+            for(int i = 6; i > 0; i--) {
+                randomDOGCoords();
+                Thread.sleep(6000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     //    Event Handle Using key up,down,left,right
@@ -191,7 +217,7 @@ public class BoardPanel extends JPanel implements ActionListener {
                 snake.setMovingDirection(Directions.UP);
             } else if (key == KeyEvent.VK_DOWN && !snake.isMovingUp()) {
                 snake.setMovingDirection(Directions.DOWN);
-            } else if (key == KeyEvent.VK_ENTER && !isPlaying) {
+            }else if (key == KeyEvent.VK_ENTER && !isPlaying) {
                 startGame();
             }
         }
